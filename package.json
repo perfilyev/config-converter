@@ -1,0 +1,32 @@
+{
+  "name": "config-converter",
+  "version": "1.0.0",
+  "description": "Convert config",
+  "bin": {
+    "config-converter": "./bin/config-converter"
+  },
+  "main": "./index.js",
+  "preferGlobal": true,
+  "scripts": {
+    "test": "mocha --reporter spec test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/perfilyev/hexlet-converter.git"
+  },
+  "author": "perfilyevhead@gmail.com",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/perfilyev/hexlet-converter/issues"
+  },
+  "homepage": "https://github.com/perfilyev/hexlet-converter#readme",
+  "dependencies": {
+    "js-yaml": "^3.6.1",
+    "node-xml-lite": "0.0.7",
+    "xml2js": "^0.4.16"
+  },
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "mocha": "^2.4.5"
+  }
+}
