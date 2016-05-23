@@ -1,6 +1,6 @@
 {
   "name": "config-converter",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "description": "Convert config",
   "bin": {
     "config-converter": "./bin/config-converter"
@@ -12,7 +12,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/perfilyev/hexlet-converter.git"
+    "url": "git+https://github.com/perfilyev/config-converter.git"
   },
   "author": "perfilyevhead@gmail.com",
   "license": "ISC",
