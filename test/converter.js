@@ -1,14 +1,18 @@
 const fs = require('fs');
 const converter = require('../src/converter');
-const filetype = require('../lib/filetype');
-const assert = require('chai').assert;
+const extension = require('../lib/file-extension');
+const validator = require('../lib/format-validator');
+
+const type = (file) => validator(extension(file));
 
 const convert = (from, to) => {
-  const type = `${filetype(from)}->${filetype(to)}`;
-  const source = fs.readFileSync(from).toString();
-  const out = (data) => fs.writeFileSync(to, data);
+  const string = fs.readFileSync(from).toString();
+  const out = (data) => {
+    fs.writeFileSync(to, data);
+    fs.unlink(to);
+  };
 
-  converter(type)(source)(out);
+  converter(type(from))(type(to))(out)(string);
 };
 
 describe('json', () => {

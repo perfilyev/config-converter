@@ -8,7 +8,7 @@ module.exports = (type) => {
   switch (type) {
     case 'xml':
       return (out) => stringify(xml, out);
-    case 'yaml':
+    case 'yml':
       return (out) => stringify(yaml, out);
     case 'json':
       return (out) => stringify(json, out);

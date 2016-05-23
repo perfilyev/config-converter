@@ -6,11 +6,11 @@ module.exports = (type) => {
   switch (type) {
     case 'xml':
       return xml;
-    case 'yaml':
+    case 'yml':
       return yaml;
     case 'json':
       return json;
     default:
-      throw new Error('Unsupported parser');
+      throw new Error(`Unsupported parse type:  ${type}`);
   }
 };
