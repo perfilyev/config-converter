@@ -4,7 +4,7 @@ const convert = (source, destination, done) => converter.convert(source, destina
 
 describe('json to', () => {
   const from = `${__dirname}/data/config.json`;
-  
+
   it('xml', done => {
     const to = `${__dirname}/data/json.to.xml`;
     convert(from, to, done);
