@@ -5,7 +5,7 @@ const makeConverter = require('../src/converter').make;
 const addCodec = require('../src/converter').addCodec;
 const hasCodec = require('../src/converter').hasCodec;
 
-const json = require('../lib/json');
+const json = require('../src/codecs/json');
 const jsonCodec = makeCodec('json', json.decode, json.encode);
 
 describe('converter', () => {

@@ -1,7 +1,6 @@
-const fs = require('fs');
+import { readFile, writeFile } from 'fs';
+import { extname } from 'path';
 
-const input = filename => new Promise(next => fs.readFile(filename, (err, data) => next(data)));
-const output = (filename, data) => new Promise(next => fs.writeFile(filename, data, () => next()));
-
-module.exports.input = input;
-module.exports.output = output;
+export const ext = (name) => extname(name).substr(1).toLowerCase();
+export const input = filename => new Promise(next => readFile(filename, (err, data) => next(data)));
+export const output = (filename, data) => new Promise(next => writeFile(filename, data, () => next()));

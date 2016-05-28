@@ -6,7 +6,7 @@
  * @param {function} encoder - The encoder function.
  */
 
-const make = (format, decoder, encoder) => (msg) => {
+export const make = (format, decoder, encoder) => (msg) => {
   switch (msg) {
     case 'format':
       return format;
@@ -23,22 +23,16 @@ const make = (format, decoder, encoder) => (msg) => {
  * Return codec format.
  * @param {codec} codec.
  */
-const getFormat = (codec) => codec('format');
+export const getFormat = (codec) => codec('format');
 
 /**
  * Return codec encoder.
  * @param {codec} codec.
  */
-const getEncoder = (codec) => codec('encode');
+export const getEncoder = (codec) => codec('encode');
 
 /**
  * Return codec decoder.
  * @param {codec} codec.
  */
-const getDecoder = (codec) => codec('decode');
-
-
-module.exports.make = make;
-module.exports.getFormat = getFormat;
-module.exports.getEncoder = getEncoder;
-module.exports.getDecoder = getDecoder;
+export const getDecoder = (codec) => codec('decode');

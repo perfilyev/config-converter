@@ -1,4 +1,4 @@
-const extension = require('../lib/filetype');
+const extension = require('../src/io').ext;
 const assert = require('chai').assert;
 
 describe('filtype', () => {

@@ -1,9 +1,11 @@
 #!/usr/bin/env node
-const getopt = require('../lib/getopt');    
+const convert = require('../dist/index').convert;
+const getopt = require('../dist/index').getopt;
+
 const opt = getopt.parse(process.argv.slice(2));
 
 if (opt.options.help || opt.argv.length !== 1 || !opt.options.out) {
     return getopt.showHelp();
 }
 
-require('../index').convert(opt.argv[0], opt.options.out).then(() => console.log('Done.'), err => console.log(err));
+convert(opt.argv[0], opt.options.out).then(() => console.log('Done.'), err => console.log(err));
