@@ -8,11 +8,11 @@
 
 export const make = (format, decoder, encoder) => (msg) => {
   switch (msg) {
-    case 'format':
+    case 'getFormat':
       return format;
-    case 'encode':
+    case 'getEncoder':
       return encoder;
-    case 'decode':
+    case 'getDecoder':
       return decoder;
     default:
       throw new Error(`${format} codec say NO!`);
@@ -23,16 +23,16 @@ export const make = (format, decoder, encoder) => (msg) => {
  * Return codec format.
  * @param {codec} codec.
  */
-export const getFormat = (codec) => codec('format');
+export const getFormat = (codec) => codec('getFormat');
 
 /**
  * Return codec encoder.
  * @param {codec} codec.
  */
-export const getEncoder = (codec) => codec('encode');
+export const getEncoder = (codec) => codec('getEncoder');
 
 /**
  * Return codec decoder.
  * @param {codec} codec.
  */
-export const getDecoder = (codec) => codec('decode');
+export const getDecoder = (codec) => codec('getDecoder');

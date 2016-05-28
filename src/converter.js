@@ -1,4 +1,4 @@
-import {getFormat, getEncoder, getDecoder} from './codec';
+import { getFormat, getEncoder, getDecoder } from './codec';
 
 /**
  * Represents a converter.
@@ -23,7 +23,12 @@ export const make = (codecs) => (msg) => {
  * @param {converter} converter.
  * @param {codec} codec.
  */
-export const addCodec = (converter, codec) => converter('addCodec')(codec);
+export const addCodec = (converter, codec) => {
+  if (hasCodec(converter, getFormat(codec))) {
+    throw new Error('Codec already added');
+  }
+  return converter('addCodec')(codec);
+}
 
 /**
  * Check codec in converter by name.
@@ -33,17 +38,31 @@ export const addCodec = (converter, codec) => converter('addCodec')(codec);
 export const hasCodec = (converter, format) => converter('hasCodec')(format);
 
 /**
- * Encode data to string.
+ * Return codec from converter by format.
  * @param {converter} converter.
  * @param {string} format - xml, json, etc.
- * @param {string} data - data representation in json.
  */
-export const encode = (converter, format, data) => getEncoder(converter('getCodec')(format))(data);
+export const getCodec = (converter, format) => {
+  if (!hasCodec(converter, format)) {
+    throw new Error('Unsupported codec');
+  }
+  return converter('getCodec')(format);
+};
 
 /**
- * Decode data to json.
+ * Return converted data.
  * @param {converter} converter.
- * @param {string} format - xml, json, etc.
- * @param {string} data - raw data.
+ * @param {string} sourceFormat - xml, json, etc.
+ * @param {string} destinationFormat - xml, json, etc.
+ * @param {string} data - raw data in sourceFormat.
  */
-export const decode = (converter, format, data) => getDecoder(converter('getCodec')(format))(data);
+export const convertData = async (converter, sourceFormat, destinationFormat, data) => {
+  const sourceCodec = getCodec(converter, sourceFormat);
+  const destinationCodec = getCodec(converter, destinationFormat);
+  
+  const decoder = getDecoder(sourceCodec);
+  const encoder = getEncoder(destinationCodec);
+  
+  const json = await decoder(data);
+  return await encoder(json);
+};

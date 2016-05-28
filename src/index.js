@@ -1,7 +1,8 @@
-import * as getoptConverter from './getopt';
-import {ext, input, output} from './io';
-import {make as makeCodec} from './codec';
-import {make as makeConverter, encode, decode} from './converter';
+import "babel-polyfill";
+
+import { getExtension, readFile, writeFile } from './io';
+import { make as makeCodec } from './codec';
+import { make as makeConverter, convertData } from './converter';
 
 import * as json from './codecs/json';
 import * as yml from './codecs/yml';
@@ -13,12 +14,11 @@ const xmlCodec = makeCodec('xml', xml.decode, xml.encode);
 
 const converter = makeConverter([jsonCodec, ymlCodec, xmlCodec]);
 
-export const convert = (source, destination) => {
-  const sourceFormat = ext(source);
-  const destinationFormat = ext(destination);
+export const convert = async (source, destination) => {
+  const sourceFormat = getExtension(source);
+  const destinationFormat = getExtension(destination);
 
-  return input(source)
-  .then(data => decode(converter, sourceFormat, data))
-  .then(data => encode(converter, destinationFormat, data))
-  .then(data => output(destination, data));
+  const data = await readFile(source);
+  const convertedData = await convertData(converter, sourceFormat, destinationFormat, data);
+  await writeFile(destination, convertedData);
 };
