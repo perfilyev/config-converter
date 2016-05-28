@@ -3,27 +3,27 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.getopt = exports.convert = undefined;
+exports.convert = undefined;
 
-var _getopt = require('./src/getopt');
+var _getopt = require('./getopt');
 
 var getoptConverter = _interopRequireWildcard(_getopt);
 
-var _io = require('./src/io');
+var _io = require('./io');
 
-var _codec = require('./src/codec');
+var _codec = require('./codec');
 
-var _converter = require('./src/converter');
+var _converter = require('./converter');
 
-var _json = require('./src/codecs/json');
+var _json = require('./codecs/json');
 
 var json = _interopRequireWildcard(_json);
 
-var _yml = require('./src/codecs/yml');
+var _yml = require('./codecs/yml');
 
 var yml = _interopRequireWildcard(_yml);
 
-var _xml = require('./src/codecs/xml');
+var _xml = require('./codecs/xml');
 
 var xml = _interopRequireWildcard(_xml);
 
@@ -47,5 +47,3 @@ var convert = exports.convert = function convert(source, destination) {
     return (0, _io.output)(destination, data);
   });
 };
-
-var getopt = exports.getopt = getoptConverter;

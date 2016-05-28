@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 const convert = require('../dist/index').convert;
-const getopt = require('../dist/index').getopt;
+const getopt = require('../dist/getopt');
 
 const opt = getopt.parse(process.argv.slice(2));
 

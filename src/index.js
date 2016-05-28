@@ -1,11 +1,11 @@
-import * as getoptConverter from './src/getopt';
-import {ext, input, output} from './src/io';
-import {make as makeCodec} from './src/codec';
-import {make as makeConverter, encode, decode} from './src/converter';
+import * as getoptConverter from './getopt';
+import {ext, input, output} from './io';
+import {make as makeCodec} from './codec';
+import {make as makeConverter, encode, decode} from './converter';
 
-import * as json from './src/codecs/json';
-import * as yml from './src/codecs/yml';
-import * as xml from './src/codecs/xml';
+import * as json from './codecs/json';
+import * as yml from './codecs/yml';
+import * as xml from './codecs/xml';
 
 const jsonCodec = makeCodec('json', json.decode, json.encode);
 const ymlCodec = makeCodec('yml', yml.decode, yml.encode);
@@ -22,5 +22,3 @@ export const convert = (source, destination) => {
   .then(data => encode(converter, destinationFormat, data))
   .then(data => output(destination, data));
 };
-
-export const getopt = getoptConverter;

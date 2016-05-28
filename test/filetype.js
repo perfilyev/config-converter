@@ -1,16 +1,16 @@
-const extension = require('../src/io').ext;
-const assert = require('chai').assert;
+import {ext} from '../src/io';
+import {assert} from 'chai';
 
 describe('filtype', () => {
   it('should be yml', () => {
-    assert.equal(extension('filename.yml'), 'yml');
+    assert.equal(ext('filename.yml'), 'yml');
   });
 
   it('should be yml, ignorcase', () => {
-    assert.equal(extension('filename.YmL'), 'yml');
+    assert.equal(ext('filename.YmL'), 'yml');
   });
 
   it('should be blank', () => {
-    assert.equal(extension('filename'), '');
+    assert.equal(ext('filename'), '');
   });
 });
