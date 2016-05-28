@@ -1,16 +1,20 @@
-const fs = require('fs');
-const converter = require('./src/converter');
-const filetype = require('./lib/filetype');
+const ext = require('./lib/filetype');
+const makeJSON = require('./lib/json').make;
+const makeYAML = require('./lib/yml').make;
+const makeXML = require('./lib/xml').make;
+const makeCodec = require('./src/codec').make;   
+const io = require('./src/io');
 
-const convert = (from, to) => {
-  const type = `${filetype(from)}->${filetype(to)}`;
-  const source = fs.readFileSync(from).toString();
-  const out = (data) => {
-    fs.writeFileSync(to, data);
-    console.log('config save');
-  };
+const codec = makeCodec([makeJSON(), makeYAML(), makeXML()]);
 
-  converter(type)(source)(out);
+const convert = (source, destination) => {
+  const sourceFormat = ext(source);
+  const destinationFormat = ext(destination);
+  
+  return io.input(source)
+  .then(data => codec('decode', sourceFormat, data))
+  .then(json => codec('encode', destinationFormat, json))
+  .then(data => io.output(destination, data));
 };
 
-module.exports = convert;
+module.exports.convert = convert;
