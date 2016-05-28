@@ -1,3 +1,9 @@
 #!/usr/bin/env node
+const getopt = require('../lib/getopt');    
+const opt = getopt.parse(process.argv.slice(2));
 
-require('../index')(process.argv[2], process.argv[3]);
+if (opt.options.help || !opt.options.from || !opt.options.to) {
+    return getopt.showHelp();
+}
+
+require('../index').convert(opt.options.from, opt.options.to).then(() => console.log('Done.'), err => console.log(err));

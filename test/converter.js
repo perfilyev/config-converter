@@ -1,49 +1,41 @@
-const fs = require('fs');
-const converter = require('../src/converter');
-const filetype = require('../lib/filetype');
-const assert = require('chai').assert;
+const converter = require('../index');
 
-const convert = (from, to) => {
-  const type = `${filetype(from)}->${filetype(to)}`;
-  const source = fs.readFileSync(from).toString();
-  const out = (data) => fs.writeFileSync(to, data);
+const convert = (source, destination, done) => converter.convert(source, destination).then(() => done(), err => console.log('error', err));
 
-  converter(type)(source)(out);
-};
-
-describe('json', () => {
+describe('json to', () => {
   const from = `${__dirname}/data/config.json`;
-  it('->xml', () => {
+  
+  it('xml', done => {
     const to = `${__dirname}/data/json.to.xml`;
-    convert(from, to);
+    convert(from, to, done);
   });
 
-  it('->yaml', () => {
+  it('yaml', done => {
     const to = `${__dirname}/data/json.to.yml`;
-    convert(from, to);
+    convert(from, to, done);
   });
 });
 
-describe('yaml', () => {
+describe('yaml to', () => {
   const from = `${__dirname}/data/config.yml`;
-  it('->xml', () => {
+  it('xml', done => {
     const to = `${__dirname}/data/yaml.to.xml`;
-    convert(from, to);
+    convert(from, to, done);
   });
-  it('->json', () => {
+  it('json', done => {
     const to = `${__dirname}/data/yaml.to.json`;
-    convert(from, to);
+    convert(from, to, done);
   });
 });
 
-describe('xml', () => {
+describe('xml to', () => {
   const from = `${__dirname}/data/config.xml`;
-  it('->json', () => {
+  it('json', done => {
     const to = `${__dirname}/data/xml.to.json`;
-    convert(from, to);
+    convert(from, to, done);
   });
-  it('->yaml', () => {
+  it('yaml', done => {
     const to = `${__dirname}/data/xml.to.yml`;
-    convert(from, to);
+    convert(from, to, done);
   });
 });
