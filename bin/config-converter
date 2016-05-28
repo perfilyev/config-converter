@@ -2,8 +2,8 @@
 const getopt = require('../lib/getopt');    
 const opt = getopt.parse(process.argv.slice(2));
 
-if (opt.options.help || !opt.options.from || !opt.options.to) {
+if (opt.options.help || opt.argv.length !== 1 || !opt.options.out) {
     return getopt.showHelp();
 }
 
-require('../index').convert(opt.options.from, opt.options.to).then(() => console.log('Done.'), err => console.log(err));
+require('../index').convert(opt.argv[0], opt.options.out).then(() => console.log('Done.'), err => console.log(err));
