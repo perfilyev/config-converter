@@ -1,4 +1,4 @@
-const converter = require('../index');
+import * as converter from '../src/index';
 
 const convert = (source, destination, done) => converter.convert(source, destination).then(() => done(), err => console.log('error', err));
 

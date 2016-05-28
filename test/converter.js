@@ -1,11 +1,9 @@
-const assert = require('chai').assert;
+import { assert } from 'chai';
 
-const makeCodec = require('../src/codec').make;
-const makeConverter = require('../src/converter').make;
-const addCodec = require('../src/converter').addCodec;
-const hasCodec = require('../src/converter').hasCodec;
+import { make as makeCodec } from '../src/codec';
+import { make as makeConverter, addCodec, hasCodec } from '../src/converter';
+import * as json from '../src/codecs/json';
 
-const json = require('../lib/json');
 const jsonCodec = makeCodec('json', json.decode, json.encode);
 
 describe('converter', () => {
@@ -15,4 +13,12 @@ describe('converter', () => {
     const jsonConverter = addCodec(emptyConverter, jsonCodec);
     assert(hasCodec(jsonConverter, 'json'));
   });
+  
+  it('unsupported codec', () => {
+    const emptyConverter = makeConverter([]);
+    assert(!hasCodec(emptyConverter, 'json'));
+  });
+  
+  
+  
 });
