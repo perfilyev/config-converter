@@ -34,7 +34,7 @@ export const hasCodec = (converter, format) => converter('hasCodec')(format);
  */
 export const addCodec = (converter, codec) => {
   if (hasCodec(converter, getFormat(codec))) {
-    throw new Error('Codec already added');
+    throw new Error(`Codec ${getFormat(codec)} already exist in converter`);
   }
   return converter('addCodec')(codec);
 };

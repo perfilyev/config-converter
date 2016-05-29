@@ -13,6 +13,12 @@ describe('converter', () => {
     const jsonConverter = addCodec(emptyConverter, jsonCodec);
     assert(hasCodec(jsonConverter, 'json'), 'has codec');
   });
+  
+  it('codec duplicate', () => {
+    const emptyConverter = makeConverter([]);
+    const jsonConverter = addCodec(emptyConverter, jsonCodec);
+    assert.throws(() => addCodec(jsonConverter, jsonCodec), 'Codec json already exist in converter');
+  });
 
   it('unsupported codec', () => {
     const emptyConverter = makeConverter([]);
