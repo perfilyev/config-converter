@@ -1,4 +1,4 @@
-import "babel-polyfill";
+import 'babel-polyfill';
 
 import { getExtension, readFile, writeFile } from './io';
 import { make as makeCodec } from './codec';

@@ -18,6 +18,15 @@ export const make = (codecs) => (msg) => {
   }
 };
 
+
+/**
+ * Check codec in converter by name.
+ * @param {converter} converter.
+ * @param {string} format - xml, json, etc.
+ */
+export const hasCodec = (converter, format) => converter('hasCodec')(format);
+
+
 /**
  * Add codec to converter and return new converter instance.
  * @param {converter} converter.
@@ -28,14 +37,7 @@ export const addCodec = (converter, codec) => {
     throw new Error('Codec already added');
   }
   return converter('addCodec')(codec);
-}
-
-/**
- * Check codec in converter by name.
- * @param {converter} converter.
- * @param {string} format - xml, json, etc.
- */
-export const hasCodec = (converter, format) => converter('hasCodec')(format);
+};
 
 /**
  * Return codec from converter by format.
@@ -59,10 +61,10 @@ export const getCodec = (converter, format) => {
 export const convertData = async (converter, sourceFormat, destinationFormat, data) => {
   const sourceCodec = getCodec(converter, sourceFormat);
   const destinationCodec = getCodec(converter, destinationFormat);
-  
+
   const decoder = getDecoder(sourceCodec);
   const encoder = getEncoder(destinationCodec);
-  
+
   const json = await decoder(data);
   return await encoder(json);
 };
