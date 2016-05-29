@@ -1,6 +1,6 @@
 import { assert } from 'chai';
 
-import {mkdirSync, rmdirSync, readdirSync, unlinkSync} from 'fs';
+import { mkdirSync, rmdirSync, readdirSync, unlinkSync } from 'fs';
 import * as converter from '../src/index';
 
 const convert = (source, destination, done) => {
@@ -52,5 +52,5 @@ describe('xml to', () => {
 
 after(() => {
   readdirSync(outDir).forEach(file => unlinkSync(`${outDir}/${file}`));
-  rmdirSync(outDir)
+  rmdirSync(outDir);
 });
