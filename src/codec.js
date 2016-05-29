@@ -6,33 +6,22 @@
  * @param {function} encoder - The encoder function.
  */
 
-export const make = (format, decoder, encoder) => (msg) => {
-  switch (msg) {
-    case 'getFormat':
-      return format;
-    case 'getEncoder':
-      return encoder;
-    case 'getDecoder':
-      return decoder;
-    default:
-      throw new Error(`You say ${msg} and codec say NO!`);
-  }
-};
+export const make = (format, decoder, encoder) => (f) => f(format, decoder, encoder);
 
 /**
  * Return codec format.
  * @param {codec} codec.
  */
-export const getFormat = (codec) => codec('getFormat');
+export const getFormat = codec => codec((format, decoder, encoder) => format);
 
 /**
  * Return codec encoder.
  * @param {codec} codec.
  */
-export const getEncoder = (codec) => codec('getEncoder');
+export const getEncoder = codec => codec((format, decoder, encoder) => encoder);
 
 /**
  * Return codec decoder.
  * @param {codec} codec.
  */
-export const getDecoder = (codec) => codec('getDecoder');
+export const getDecoder = codec => codec((format, decoder, encoder) => decoder);

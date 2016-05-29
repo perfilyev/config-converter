@@ -5,18 +5,7 @@ import { getFormat, getEncoder, getDecoder } from './codec';
  * @constructor
  * @param {array} codecs - The array of the codecs.
  */
-export const make = (codecs) => (msg) => {
-  switch (msg) {
-    case 'hasCodec':
-      return (format) => codecs.some(codec => getFormat(codec) === format);
-    case 'getCodec':
-      return (format) => codecs.find(codec => getFormat(codec) === format);
-    case 'addCodec':
-      return (codec) => make(codecs.concat([codec]));
-    default:
-      throw new Error(`You say ${msg} and converter say NO!`);
-  }
-};
+export const make = codecs => f => f(codecs);
 
 
 /**
@@ -24,7 +13,7 @@ export const make = (codecs) => (msg) => {
  * @param {converter} converter.
  * @param {string} format - xml, json, etc.
  */
-export const hasCodec = (converter, format) => converter('hasCodec')(format);
+export const hasCodec = (converter, format) => converter(codecs => codecs.some(codec => getFormat(codec) === format));
 
 
 /**
@@ -32,24 +21,24 @@ export const hasCodec = (converter, format) => converter('hasCodec')(format);
  * @param {converter} converter.
  * @param {codec} codec.
  */
-export const addCodec = (converter, codec) => {
+export const addCodec = (converter, codec) => converter(codecs => {
   if (hasCodec(converter, getFormat(codec))) {
     throw new Error(`Codec ${getFormat(codec)} already exist in converter`);
   }
-  return converter('addCodec')(codec);
-};
+  return make(codecs.concat([codec]));
+});
 
 /**
  * Return codec from converter by format.
  * @param {converter} converter.
  * @param {string} format - xml, json, etc.
  */
-export const getCodec = (converter, format) => {
+export const getCodec = (converter, format) => converter(codecs => {
   if (!hasCodec(converter, format)) {
     throw new Error('Unsupported codec');
   }
-  return converter('getCodec')(format);
-};
+  return codecs.find(codec => getFormat(codec) === format);
+});
 
 /**
  * Return converted data.
