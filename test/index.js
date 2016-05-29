@@ -1,7 +1,5 @@
-import { assert } from 'chai';
-
 import { mkdirSync, rmdirSync, readdirSync, unlinkSync } from 'fs';
-import {convert} from '../src/index';
+import { convert } from '../src/index';
 
 const fixturesDir = `${__dirname}/data`;
 const outDir = `${__dirname}/out`;

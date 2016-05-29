@@ -1,3 +1,5 @@
+/* eslint max-len: ["error", 120]*/
+
 import { assert } from 'chai';
 
 import { make as makeCodec } from '../src/codec';
@@ -13,7 +15,7 @@ describe('converter', () => {
     const jsonConverter = addCodec(emptyConverter, jsonCodec);
     assert(hasCodec(jsonConverter, 'json'), 'has codec');
   });
-  
+
   it('codec duplicate', () => {
     const emptyConverter = makeConverter([]);
     const jsonConverter = addCodec(emptyConverter, jsonCodec);
@@ -24,16 +26,14 @@ describe('converter', () => {
     const emptyConverter = makeConverter([]);
     assert.throws(() => getCodec(emptyConverter, 'json'), 'Unsupported codec');
   });
-  
+
   it('unsupported converter call', () => {
     const emptyConverter = makeConverter([]);
     assert.throws(() => emptyConverter('surprise me'), 'You say surprise me and converter say NO!');
   });
-  
+
   it('unsupported codec call', () => {
     const emptyCodec = makeCodec(null, null, null);
     assert.throws(() => emptyCodec('surprise me'), 'You say surprise me and codec say NO!');
   });
-  
-  
 });
