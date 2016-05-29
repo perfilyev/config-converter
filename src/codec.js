@@ -15,7 +15,7 @@ export const make = (format, decoder, encoder) => (msg) => {
     case 'getDecoder':
       return decoder;
     default:
-      throw new Error(`${format} codec say NO!`);
+      throw new Error(`You say ${msg} and codec say NO!`);
   }
 };
 
